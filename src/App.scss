@@ -1,0 +1,58 @@
+.ant-modal {
+  height: 100% !important;
+}
+
+.ant-modal-body{
+  height: 100% !important
+}
+
+.ant-modal-content{
+  padding: 0 !important;
+  height: 100% !important;
+
+}
+
+.banner_swiper {
+  .swiper-pagination {
+    display: flex;
+    position: absolute;
+    left: 50% !important;
+    top: 2px !important;
+    transform: translateX(-50%);
+    width: 100% !important;
+    height: 10px;
+
+    // @include responsivemin(540) {
+    //   left: 4% !important;
+    // }
+    // @include responsivemin(1300) {
+    //   left: 8% !important;
+    // }
+    // @include responsivemin(1400) {
+    //   left: 12% !important;
+    // }
+    // @include responsivemin(1600) {
+    //   left: 14% !important;
+    // }
+    
+    .swiper-pagination-bullet {
+      display: flex;
+      flex-grow: 1;
+      height: 4px !important;
+
+      
+      border-radius: 5px;
+      background: linear-gradient(to right, #fff 50%, rgb(96, 102, 123) 50%);
+      background-size: 200% 100%;
+      background-position: bottom right;
+      opacity: 0.8;
+      //   transition: all 0.3s ease;
+      &.swiper-pagination-bullet-active {
+        background-color: #fff;
+        background-position: bottom left;
+        opacity: 1;
+        transition: background-position 4s ease-out;
+      }
+    }
+  }
+}
