@@ -8,7 +8,7 @@ function Landing() {
   return (
     <>
       <div className="flex w-screen h-screen bg-black">
-        <div className="flex w-full justify-center">
+        <div className="flex w-full h-full justify-center">
           <div className="flex flex-col bg-white max-sm:w-full w-[400px]">
             {/* Header Section */}
             <div className="flex w-full h-[70px] border-b-2 border-neutral-200 shadow-md">
@@ -29,7 +29,7 @@ function Landing() {
               </div>
             </div>
             {/* Posts section */}
-            <div className="flex w-full flex-col overflow-y-auto mb-1">
+            <div className="flex w-full flex-col overflow-y-auto">
               {dummy_post.map((post_data, index) => (
                 <Post key={index} post_data={post_data} />
               ))}

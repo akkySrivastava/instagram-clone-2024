@@ -78,13 +78,13 @@ const ReelsModal = () => {
                       size={24}
                     />
                   </div>
-                  <div className="absolute w-full h-full -bottom-[66%] flex">
+                  <div className="absolute w-full h-full -bottom-0 flex">
                     <div
                       style={{
                         backgroundImage:
-                          "linear-gradient(180deg, transparent, rgba(0,0,0,0.7), #000)",
+                          "linear-gradient(180deg, transparent, rgba(37,37,37,0.7), #111)",
                       }}
-                      className="flex w-full h-[230px]"
+                      className="flex w-full"
                     >
                       <div className="flex w-full h-full">
                         <div className="px-2 py-4 flex w-[75%] h-full flex-col justify-end gap-y-1">
@@ -124,7 +124,7 @@ const ReelsModal = () => {
                           </div>
                         </div>
                         <div className="flex flex-1">
-                          <div className="flex flex-col items-end mr-5 w-full gap-y-2.5 text-gray-400 text-[12px] ">
+                          <div className="flex flex-col items-end justify-end mr-5 mb-2 w-full gap-y-2.5 text-gray-400 text-[12px] ">
                             <span className="flex flex-col items-center gap-y-1 hover:text-white">
                               <BsHeart className="cursor-pointer" size={24} />
                               <span>10</span>
