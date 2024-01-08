@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { generateRandomImage } from "../data/raw_data";
+import { generateRandomImage, generateRandomName } from "../data/raw_data";
 import { GoHome, GoSearch } from "react-icons/go";
 import { TbSquarePlus } from "react-icons/tb";
 import { Link } from "react-router-dom";
@@ -57,13 +57,17 @@ const Footer = () => {
           />
         </svg>
       </Link>
-      <span className="cursor-pointer">
+      <Link
+        to={`/insta/user/${generateRandomName()}`}
+        state={{ profile_img: generateRandomImage() }}
+        className="cursor-pointer"
+      >
         <img
           className="h-8 w-8 rounded-full"
           src={generateRandomImage()}
           alt=""
         />
-      </span>
+      </Link>
     </div>
   );
 };

@@ -1,28 +1,202 @@
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
+import {
+  MdGridOn,
+  MdMoreHoriz,
+  MdOutlineArrowBackIosNew,
+} from "react-icons/md";
+import { generateRandomImage } from "../data/raw_data";
+import { FaRegBell } from "react-icons/fa";
+import { useMemo, useState } from "react";
+import { faker } from "@faker-js/faker";
+import { Link, useLocation, useParams } from "react-router-dom";
+import { BiUserPin } from "react-icons/bi";
+import ProfileDataGrid from "./ProfileDataGrid";
+function UserProfile() {
+  const { username } = useParams();
+  const { state } = useLocation();
+  const [tab, setTab] = useState(0);
+  const {
+    user_name,
+    profession,
+    bio,
+    address,
+    link: personal_link,
+  } = useMemo(
+    () => ({
+      user_name: username,
+      profession: faker.person.jobTitle(),
+      bio: faker.person.bio(),
+      address: faker.location.streetAddress(),
+      link: faker.internet.url(),
+      country: faker.location.country(),
+    }),
+    [username]
+  );
 
-function UserProfile({ data }) {
-  const { name, profile_img } = data;
-  const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center">
-      <div
-        onClick={() => navigate("/insta/stories")}
-        className="flex p-[3px] max-w-fit rounded-full bg-gradient-to-r from-[#ffc600] via-[#ff0040] to-[#e600cc] cursor-pointer"
-      >
-        <img
-          className="w-16 h-16 rounded-full items-center justify-center"
-          src={profile_img}
-          alt="profile1"
-        />
+    <div className="flex w-full overflow-y-auto no-scroll-thumb relative">
+      <div className="flex flex-col w-full ">
+        {/* Top Section */}
+        <div className="flex w-full items-center justify-between my-3 px-2">
+          <Link to={"/"} className="cursor-pointer">
+            <MdOutlineArrowBackIosNew size={20} />
+          </Link>
+          <span className="text-sm font-semibold font-poppins lowercase">
+            {user_name}
+          </span>
+          <span className="flex gap-3">
+            <span className="cursor-pointer">
+              <FaRegBell size={20} />
+            </span>
+            <span className="cursor-pointer">
+              <MdMoreHoriz size={20} />
+            </span>
+          </span>
+        </div>
+        {/* Profile Header */}
+        <div className="w-full flex items-center justify-between my-1 px-2">
+          <div className="flex">
+            <img
+              className="w-16 h-16 object-cover rounded-full"
+              src={state?.profile_img ?? generateRandomImage()}
+              alt=""
+            />
+          </div>
+          <div className="flex gap-8">
+            <span className="flex flex-col items-center">
+              <span className="font-bold text-lg">123</span>
+              <span className="text-sm text-gray-500">Posts</span>
+            </span>
+            <span className="flex flex-col items-center">
+              <span className="font-bold text-lg">41.6K</span>
+              <span className="text-sm text-gray-500">Followers</span>
+            </span>
+            <span className="flex flex-col items-center">
+              <span className="font-bold text-lg">1.5K</span>
+              <span className="text-sm text-gray-500">Following</span>
+            </span>
+          </div>
+        </div>
+        {/* Profile Name */}
+        <div className="flex px-2">
+          <span className="font-semibold text-sm lowercase">{user_name}</span>
+        </div>
+        <div className="flex text-sky-700 text-sm px-2">
+          <span>👩‍🎓 {profession}</span>
+        </div>
+        <div className="flex text-sm capitalize px-2">
+          <span>👉 {bio}</span>
+        </div>
+        <div className="flex text-sm px-2">
+          <span>📍{address}</span>
+        </div>
+        <div className="flex text-sm text-sky-600 hover:text-sky-800 px-2">
+          <span>🔗 </span>
+          <Link to={".."} className="hover:underline">
+            {personal_link}
+          </Link>
+        </div>
+
+        {/* User Highlights */}
+        <div className="flex w-full flex-1 justify-between my-3 px-2">
+          {[...Array(5)].map((_) => {
+            return (
+              <div key={_} className="flex flex-col items-center min-w-16">
+                <img
+                  className="h-16 w-16 object-cover rounded-full border-2 p-0.5 border-gray-400"
+                  src={faker.image.urlLoremFlickr()}
+                  alt=""
+                />
+                <span className="truncate text-sm max-w-16">
+                  {faker.location.country()}
+                </span>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* User Posts/Reels/Tags */}
+        <div className="flex flex-col w-full mt-2">
+          <div className="grid w-full grid-flow-row-dense grid-cols-3 items-center sticky top-0 bg-white">
+            <div
+              className={`col-span-1 flex items-center justify-center ${
+                tab === 0 ? "border-b-2 border-gray-400" : ""
+              }  p-2`}
+            >
+              <MdGridOn
+                onClick={() => setTab(0)}
+                className="cursor-pointer"
+                size={26}
+              />
+            </div>
+            <div
+              className={`col-span-1 flex items-center justify-center ${
+                tab === 1 ? "border-b-2 border-gray-400" : ""
+              } p-2`}
+            >
+              <svg
+                onClick={() => setTab(1)}
+                className="cursor-pointer"
+                width="23"
+                height="23"
+                viewBox="0 0 23 23"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="1.04163"
+                  y="1.52081"
+                  width="20"
+                  height="20"
+                  rx="5"
+                  stroke="black"
+                  strokeWidth="2"
+                />
+                <line
+                  x1="1.04163"
+                  y1="6.52081"
+                  x2="21.0416"
+                  y2="6.52081"
+                  stroke="black"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M12.5416 1.52083L16.0417 6.52084"
+                  stroke="black"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M6.04164 1.52083L9.54167 6.52084"
+                  stroke="black"
+                  strokeWidth="2"
+                />
+                <path
+                  d="M14.0416 12.6548C14.7083 13.0397 14.7083 14.0019 14.0416 14.3868L9.54163 16.9849C8.87496 17.3698 8.04163 16.8887 8.04163 16.1189L8.04163 10.9227C8.04163 10.1529 8.87496 9.67181 9.54163 10.0567L14.0416 12.6548Z"
+                  fill="black"
+                />
+              </svg>
+            </div>
+            <div
+              className={`col-span-1 flex items-center justify-center ${
+                tab === 2 ? "border-b-2 border-gray-400" : ""
+              } p-2`}
+            >
+              <BiUserPin
+                onClick={() => setTab(2)}
+                className="cursor-pointer"
+                size={28}
+              />
+            </div>
+          </div>
+          {/* Post Data */}
+          <div className="flex w-full">
+            <ProfileDataGrid tabIndex={tab} />
+          </div>
+        </div>
       </div>
-      <span className="text-sm font-semibold">{name}</span>
     </div>
   );
 }
 
-UserProfile.propTypes = {
-  data: PropTypes.object.isRequired,
-};
+UserProfile.propTypes = {};
 
 export default UserProfile;

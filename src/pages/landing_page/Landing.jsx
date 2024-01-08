@@ -1,8 +1,8 @@
 import { BrandLogo } from "../../components/Logo";
-import UserProfile from "../../components/UserProfile";
 import { dummy_post, profile_data } from "../../data/raw_data";
 import Post from "../../components/Post";
 import Footer from "../../components/Footer";
+import UserStories from "../../components/UserStories";
 
 function Landing() {
   return (
@@ -24,7 +24,7 @@ function Landing() {
                 <div className="flex w-full py-2">
                   <div className="flex items-center px-4 gap-6">
                     {profile_data.map(({ name, profile_img }, index) => (
-                      <UserProfile key={index} data={{ name, profile_img }} />
+                      <UserStories key={index} data={{ name, profile_img }} />
                     ))}
                   </div>
                 </div>
