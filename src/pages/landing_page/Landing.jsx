@@ -7,7 +7,7 @@ import Footer from "../../components/Footer";
 function Landing() {
   return (
     <>
-      <div className="flex w-screen h-screen bg-black">
+      <div className="flex w-screen h-svh bg-black">
         <div className="flex w-full h-full justify-center">
           <div className="flex flex-col bg-white max-sm:w-full w-[400px]">
             {/* Header Section */}
