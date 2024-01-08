@@ -90,14 +90,16 @@ const ChildrenSlider = ({
     >
       {stories_data?.stories.map((story, index) => (
         <SwiperSlide key={index} className="w-full h-full">
-          <div className="w-full h-full relative border-b-2 border-neutral-500">
-            <img
-              // loading="lazy"
-              src={story.data}
-              alt="banner"
-              className="w-full h-[90%] object-cover"
-            />
-            <div className="flex h-[10%] p-2 gap-4 items-center">
+          <div className="flex flex-col w-full h-full border-b-2 border-neutral-500">
+            <div className="flex h-full">
+              <img
+                // loading="lazy"
+                src={story.data}
+                alt="banner"
+                className="object-cover rounded-md"
+              />
+            </div>
+            <div className="flex p-2 gap-4 items-center">
               <div className="flex flex-1">
                 <input
                   className="bg-black border-2 border-neutral-800 p-2 rounded-full w-full text-gray-300"
