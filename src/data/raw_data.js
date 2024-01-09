@@ -76,7 +76,34 @@ export const profile_data = [
         mime: 'img'
       },
     ]
-  }
+  },
+  {
+    name: 'doris_howell',
+    profile_img: 'https://xsgames.co/randomusers/assets/avatars/female/7.jpg',
+    key: 4,
+    stories: [
+      {
+        data: faker.image.url(),
+        time: '10h',
+        mime: 'img'
+      },
+      {
+        data: faker.image.urlPicsumPhotos(),
+        time: '12h',
+        mime: 'img'
+      },
+      {
+        data: faker.image.urlLoremFlickr(),
+        time: '15h',
+        mime: 'img'
+      },
+      {
+        data: faker.image.urlLoremFlickr(),
+        time: '15h',
+        mime: 'img'
+      },
+    ]
+  },
 ]
 
 export const dummy_post = [

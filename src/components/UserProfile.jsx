@@ -1,19 +1,34 @@
-import {
-  MdGridOn,
-  MdMoreHoriz,
-  MdOutlineArrowBackIosNew,
-} from "react-icons/md";
-import { generateRandomImage } from "../data/raw_data";
-import { FaRegBell } from "react-icons/fa";
+import { MdGridOn, MdKeyboardArrowDown } from "react-icons/md";
+import { generateRandomImage, profile_data } from "../data/raw_data";
 import { useMemo, useState } from "react";
 import { faker } from "@faker-js/faker";
 import { Link, useLocation, useParams } from "react-router-dom";
 import { BiUserPin } from "react-icons/bi";
 import ProfileDataGrid from "./ProfileDataGrid";
+import { BsPlusSquare } from "react-icons/bs";
+import { AiOutlineMenu } from "react-icons/ai";
+import { useDrawerHooks } from "../hooks/useDrawerHooks";
+import DashboardMenu from "./Drawer/DashboardMenu";
+import SwitchAccountMenu from "./Drawer/SwitchAccountMenu";
 function UserProfile() {
   const { username } = useParams();
   const { state } = useLocation();
   const [tab, setTab] = useState(0);
+
+  const {
+    openDashboardMenu,
+    openSwitchAccountMenu,
+    openPostTypeMenu,
+    openPostType,
+    closePostType,
+    closeDashboard,
+    openDashboard,
+    onCloseSwitchAccount,
+    onOpenSwitchAccount,
+    dashboardMenuOptions,
+    postContentOptions,
+  } = useDrawerHooks();
+
   const {
     user_name,
     profession,
@@ -33,22 +48,27 @@ function UserProfile() {
   );
 
   return (
-    <div className="flex w-full overflow-y-auto no-scroll-thumb relative">
+    <div className="flex w-full h-full overflow-y-auto no-scroll-thumb relative">
       <div className="flex flex-col w-full ">
         {/* Top Section */}
-        <div className="flex w-full items-center justify-between my-3 px-2">
-          <Link to={"/"} className="cursor-pointer">
-            <MdOutlineArrowBackIosNew size={20} />
-          </Link>
-          <span className="text-sm font-semibold font-poppins lowercase">
-            {user_name}
-          </span>
-          <span className="flex gap-3">
-            <span className="cursor-pointer">
-              <FaRegBell size={20} />
+        <div className="flex w-full items-center my-3 px-2">
+          <div className="flex items-center flex-1 gap-2">
+            <span
+              onClick={onOpenSwitchAccount}
+              className="flex items-center text-lg font-semibold font-poppins lowercase cursor-pointer"
+            >
+              {user_name}
+              <MdKeyboardArrowDown size={24} />
             </span>
-            <span className="cursor-pointer">
-              <MdMoreHoriz size={20} />
+          </div>
+
+          <span className="flex gap-5">
+            <span onClick={openPostType} className="cursor-pointer">
+              <BsPlusSquare size={20} />
+            </span>
+            <span onClick={openDashboard} className="relative">
+              <AiOutlineMenu className="cursor-pointer" size="20" />
+              <span className="bg-red-600 w-2.5 h-2.5 absolute -top-1 -right-1 rounded-full"></span>
             </span>
           </span>
         </div>
@@ -97,10 +117,13 @@ function UserProfile() {
         </div>
 
         {/* User Highlights */}
-        <div className="flex w-full flex-1 justify-between my-3 px-2">
+        <div className="flex w-full justify-between my-3 px-2">
           {[...Array(5)].map((_) => {
             return (
-              <div key={_} className="flex flex-col items-center min-w-16">
+              <div
+                key={_}
+                className="flex flex-col items-center min-w-16 cursor-pointer"
+              >
                 <img
                   className="h-16 w-16 object-cover rounded-full border-2 p-0.5 border-gray-400"
                   src={faker.image.urlLoremFlickr()}
@@ -115,12 +138,12 @@ function UserProfile() {
         </div>
 
         {/* User Posts/Reels/Tags */}
-        <div className="flex flex-col w-full mt-2">
+        <div className="flex flex-1 flex-col w-full mt-2">
           <div className="grid w-full grid-flow-row-dense grid-cols-3 items-center sticky top-0 bg-white">
             <div
               className={`col-span-1 flex items-center justify-center ${
-                tab === 0 ? "border-b-2 border-gray-400" : ""
-              }  p-2`}
+                tab === 0 ? "border-b-2 border-gray-500 text-black" : ""
+              }  p-2 text-gray-400`}
             >
               <MdGridOn
                 onClick={() => setTab(0)}
@@ -130,8 +153,8 @@ function UserProfile() {
             </div>
             <div
               className={`col-span-1 flex items-center justify-center ${
-                tab === 1 ? "border-b-2 border-gray-400" : ""
-              } p-2`}
+                tab === 1 ? "border-b-2 border-gray-500" : ""
+              } p-2 text-gray-400`}
             >
               <svg
                 onClick={() => setTab(1)}
@@ -148,7 +171,7 @@ function UserProfile() {
                   width="20"
                   height="20"
                   rx="5"
-                  stroke="black"
+                  stroke={tab === 1 ? "black" : "gray"}
                   strokeWidth="2"
                 />
                 <line
@@ -156,29 +179,29 @@ function UserProfile() {
                   y1="6.52081"
                   x2="21.0416"
                   y2="6.52081"
-                  stroke="black"
+                  stroke={tab === 1 ? "black" : "gray"}
                   strokeWidth="2"
                 />
                 <path
                   d="M12.5416 1.52083L16.0417 6.52084"
-                  stroke="black"
+                  stroke={tab === 1 ? "black" : "gray"}
                   strokeWidth="2"
                 />
                 <path
                   d="M6.04164 1.52083L9.54167 6.52084"
-                  stroke="black"
+                  stroke={tab === 1 ? "black" : "gray"}
                   strokeWidth="2"
                 />
                 <path
                   d="M14.0416 12.6548C14.7083 13.0397 14.7083 14.0019 14.0416 14.3868L9.54163 16.9849C8.87496 17.3698 8.04163 16.8887 8.04163 16.1189L8.04163 10.9227C8.04163 10.1529 8.87496 9.67181 9.54163 10.0567L14.0416 12.6548Z"
-                  fill="black"
+                  fill={tab === 1 ? "black" : "gray"}
                 />
               </svg>
             </div>
             <div
               className={`col-span-1 flex items-center justify-center ${
-                tab === 2 ? "border-b-2 border-gray-400" : ""
-              } p-2`}
+                tab === 2 ? "border-b-2 border-gray-500 text-black" : ""
+              } p-2 text-gray-400`}
             >
               <BiUserPin
                 onClick={() => setTab(2)}
@@ -188,11 +211,34 @@ function UserProfile() {
             </div>
           </div>
           {/* Post Data */}
-          <div className="flex w-full">
+          <div className="flex flex-1 w-full">
             <ProfileDataGrid tabIndex={tab} />
           </div>
         </div>
       </div>
+
+      {/* Drawers */}
+      <DashboardMenu
+        props={{
+          open: openDashboardMenu,
+          close: closeDashboard,
+          menuOptions: dashboardMenuOptions,
+        }}
+      />
+      <DashboardMenu
+        props={{
+          open: openPostTypeMenu,
+          close: closePostType,
+          menuOptions: postContentOptions,
+        }}
+      />
+      <SwitchAccountMenu
+        props={{
+          open: openSwitchAccountMenu,
+          close: onCloseSwitchAccount,
+          menuOptions: profile_data,
+        }}
+      />
     </div>
   );
 }

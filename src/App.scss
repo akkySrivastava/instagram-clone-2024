@@ -12,6 +12,12 @@
 
 }
 
+.ant-drawer-content-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 .no-scroll-thumb {
   -ms-overflow-style: none;
   /* Internet Explorer 10+ */

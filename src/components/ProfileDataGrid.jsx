@@ -39,6 +39,21 @@ const ProfileDataGrid = ({ tabIndex }) => {
       </div>
     );
   }
+
+  if (tabIndex === 2) {
+    return (
+      <div className="flex w-full h-full">
+        <div className="flex w-full items-center justify-center flex-col">
+          <span className="font-semibold max-w-32 text-center text-lg font-poppins text-neutral-700">
+            Photos and videos of you
+          </span>
+          <span className="text-gray-500 text-center text-sm max-w-56">
+            When people tag you in photos and videos, they will appear here.{" "}
+          </span>
+        </div>
+      </div>
+    );
+  }
 };
 
 ProfileDataGrid.propTypes = {
