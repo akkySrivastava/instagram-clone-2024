@@ -2,7 +2,7 @@ import { MdGridOn, MdKeyboardArrowDown } from "react-icons/md";
 import { generateRandomImage, profile_data } from "../data/raw_data";
 import { useMemo, useState } from "react";
 import { faker } from "@faker-js/faker";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import { BiUserPin } from "react-icons/bi";
 import ProfileDataGrid from "./ProfileDataGrid";
 import { BsPlusSquare } from "react-icons/bs";
@@ -10,23 +10,28 @@ import { AiOutlineMenu } from "react-icons/ai";
 import { useDrawerHooks } from "../hooks/useDrawerHooks";
 import DashboardMenu from "./Drawer/DashboardMenu";
 import SwitchAccountMenu from "./Drawer/SwitchAccountMenu";
+import { useAccount } from "../hooks/useAccount";
+import AllLists from "./profile/AllLists";
 function UserProfile() {
   const { username } = useParams();
-  const { state } = useLocation();
+  const { search } = useLocation();
+  const navigate = useNavigate();
+  const { defaultAccount } = useAccount();
+  const { profile_img, name } = defaultAccount;
   const [tab, setTab] = useState(0);
 
   const {
     openDashboardMenu,
     openSwitchAccountMenu,
     openPostTypeMenu,
+    dashboardMenuOptions,
+    postContentOptions,
     openPostType,
     closePostType,
     closeDashboard,
     openDashboard,
     onCloseSwitchAccount,
     onOpenSwitchAccount,
-    dashboardMenuOptions,
-    postContentOptions,
   } = useDrawerHooks();
 
   const {
@@ -47,6 +52,11 @@ function UserProfile() {
     [username]
   );
 
+  // Show follow following list
+  if (search) {
+    return <AllLists />;
+  }
+
   return (
     <div className="flex w-full h-full overflow-y-auto no-scroll-thumb relative">
       <div className="flex flex-col w-full ">
@@ -57,7 +67,7 @@ function UserProfile() {
               onClick={onOpenSwitchAccount}
               className="flex items-center text-lg font-semibold font-poppins lowercase cursor-pointer"
             >
-              {user_name}
+              {name ?? user_name}
               <MdKeyboardArrowDown size={24} />
             </span>
           </div>
@@ -77,7 +87,7 @@ function UserProfile() {
           <div className="flex">
             <img
               className="w-16 h-16 object-cover rounded-full"
-              src={state?.profile_img ?? generateRandomImage()}
+              src={profile_img ?? generateRandomImage()}
               alt=""
             />
           </div>
@@ -86,11 +96,17 @@ function UserProfile() {
               <span className="font-bold text-lg">123</span>
               <span className="text-sm text-gray-500">Posts</span>
             </span>
-            <span className="flex flex-col items-center">
+            <span
+              onClick={() => navigate("?list=followers")}
+              className="flex flex-col items-center cursor-pointer"
+            >
               <span className="font-bold text-lg">41.6K</span>
               <span className="text-sm text-gray-500">Followers</span>
             </span>
-            <span className="flex flex-col items-center">
+            <span
+              onClick={() => navigate("?list=following")}
+              className="flex flex-col items-center cursor-pointer"
+            >
               <span className="font-bold text-lg">1.5K</span>
               <span className="text-sm text-gray-500">Following</span>
             </span>
@@ -98,7 +114,9 @@ function UserProfile() {
         </div>
         {/* Profile Name */}
         <div className="flex px-2">
-          <span className="font-semibold text-sm lowercase">{user_name}</span>
+          <span className="font-semibold text-sm lowercase">
+            {name ?? user_name}
+          </span>
         </div>
         <div className="flex text-sky-700 text-sm px-2">
           <span>👩‍🎓 {profession}</span>
@@ -118,10 +136,10 @@ function UserProfile() {
 
         {/* User Highlights */}
         <div className="flex w-full justify-between my-3 px-2">
-          {[...Array(5)].map((_) => {
+          {[...Array(5)].map((_, index) => {
             return (
               <div
-                key={_}
+                key={index}
                 className="flex flex-col items-center min-w-16 cursor-pointer"
               >
                 <img
@@ -142,8 +160,10 @@ function UserProfile() {
           <div className="grid w-full grid-flow-row-dense grid-cols-3 items-center sticky top-0 bg-white">
             <div
               className={`col-span-1 flex items-center justify-center ${
-                tab === 0 ? "border-b-2 border-gray-500 text-black" : ""
-              }  p-2 text-gray-400`}
+                tab === 0
+                  ? "border-b-2 border-gray-500 text-black"
+                  : "text-gray-400"
+              }  p-2 `}
             >
               <MdGridOn
                 onClick={() => setTab(0)}
@@ -153,8 +173,8 @@ function UserProfile() {
             </div>
             <div
               className={`col-span-1 flex items-center justify-center ${
-                tab === 1 ? "border-b-2 border-gray-500" : ""
-              } p-2 text-gray-400`}
+                tab === 1 ? "border-b-2 border-gray-500" : "text-gray-400"
+              } p-2 `}
             >
               <svg
                 onClick={() => setTab(1)}
@@ -200,8 +220,10 @@ function UserProfile() {
             </div>
             <div
               className={`col-span-1 flex items-center justify-center ${
-                tab === 2 ? "border-b-2 border-gray-500 text-black" : ""
-              } p-2 text-gray-400`}
+                tab === 2
+                  ? "border-b-2 border-gray-500 text-black"
+                  : "text-gray-400"
+              } p-2`}
             >
               <BiUserPin
                 onClick={() => setTab(2)}
@@ -239,6 +261,20 @@ function UserProfile() {
           menuOptions: profile_data,
         }}
       />
+      {/* <List
+        props={{
+          open: openFollowerList,
+          close: onCloseFollowerList,
+          menuOptions: follower_arr,
+        }}
+      />
+      <List
+        props={{
+          open: openFollowingList,
+          close: onCloseFollowingList,
+          menuOptions: following_arr,
+        }}
+      /> */}
     </div>
   );
 }

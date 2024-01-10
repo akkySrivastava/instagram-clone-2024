@@ -8,12 +8,15 @@ import { GoPersonAdd } from "react-icons/go";
 import ReelsIcon from "../components/icons/ReelsIcon";
 import { TbClockHeart, TbHeartPlus } from 'react-icons/tb'
 import { FaWandMagicSparkles } from 'react-icons/fa6'
+import { followers_list, following_list, subscriptions_list } from "../data/raw_data";
 
 
 export function useDrawerHooks() {
   const [openDashboardMenu, setOpenDashboardMenu] = useState(false);
   const [openPostTypeMenu, setOpenPostTypeMenu] = useState(false)
   const [openSwitchAccountMenu, setOpenSwitchAccountMenu] = useState(false)
+  const [openFollowerList, setOpenFollowerList] = useState(false)
+  const [openFollowingList, setOpenFollowingList] = useState(false)
 
   const openDashboard = useCallback(() => setOpenDashboardMenu(true), []);
   const closeDashboard = useCallback(() => setOpenDashboardMenu(false), []);
@@ -23,6 +26,12 @@ export function useDrawerHooks() {
 
   const onOpenSwitchAccount = useCallback(() => setOpenSwitchAccountMenu(true), []);
   const onCloseSwitchAccount = useCallback(() => setOpenSwitchAccountMenu(false), []);
+
+  const onOpenFollowerList = useCallback(() => setOpenFollowerList(true), []);
+  const onCloseFollowerList = useCallback(() => setOpenFollowerList(false), []);
+
+  const onOpenFollowingList = useCallback(() => setOpenFollowingList(true), []);
+  const onCloseFollowingList = useCallback(() => setOpenFollowingList(false), []);
 
   const dashboardMenuOptions = useMemo(() =>
     [
@@ -132,18 +141,34 @@ export function useDrawerHooks() {
     },
   ], [])
 
+  const follower_arr = useMemo(() => [...new Map(followers_list.map(item =>
+    [item['photographer'], item])).values()], [])
+  const following_arr = useMemo(() => [...new Map(following_list.map(item =>
+    [item['photographer'], item])).values()], [])
+  const subscriptions_arr = useMemo(() => [...new Map(subscriptions_list.map(item =>
+    [item['photographer'], item])).values()], [])
+
   return useMemo(() => ({
     dashboardMenuOptions,
     postContentOptions,
     openDashboardMenu,
     openPostTypeMenu,
     openSwitchAccountMenu,
+    openFollowerList,
+    openFollowingList,
+    follower_arr,
+    following_arr,
+    subscriptions_arr,
     openDashboard,
     closeDashboard,
     openPostType,
     closePostType,
     onOpenSwitchAccount,
     onCloseSwitchAccount,
+    onOpenFollowerList,
+    onCloseFollowerList,
+    onOpenFollowingList,
+    onCloseFollowingList
   }),
     [
       openDashboardMenu,
@@ -151,11 +176,20 @@ export function useDrawerHooks() {
       dashboardMenuOptions,
       postContentOptions,
       openSwitchAccountMenu,
+      follower_arr,
+      following_arr,
+      subscriptions_arr,
+      openFollowerList,
+      openFollowingList,
       openDashboard,
       closeDashboard,
       openPostType,
       closePostType,
       onOpenSwitchAccount,
       onCloseSwitchAccount,
+      onOpenFollowerList,
+      onCloseFollowerList,
+      onOpenFollowingList,
+      onCloseFollowingList
     ])
 }

@@ -1,8 +1,11 @@
 import { Drawer } from "antd";
 import PropTypes from "prop-types";
+import { useAccount } from "../../hooks/useAccount";
 
 const SwitchAccountMenu = ({ props }) => {
   const { open, close, menuOptions } = props;
+  const { onChangeAccount, defaultAccount } = useAccount();
+  const { name: default_account } = defaultAccount;
   return (
     <Drawer
       placement="bottom"
@@ -23,6 +26,10 @@ const SwitchAccountMenu = ({ props }) => {
               <div
                 className="flex w-full items-center cursor-pointer"
                 key={index}
+                onClick={() => {
+                  onChangeAccount({ profile_img, name });
+                  close();
+                }}
               >
                 <div className="flex flex-1 gap-2.5 items-center">
                   <img
@@ -31,7 +38,7 @@ const SwitchAccountMenu = ({ props }) => {
                   />
                   <span className="font-medium text-md w-full">{name}</span>
                 </div>
-                {index === 3 ? (
+                {default_account === name ? (
                   <div className="flex w-4 h-4 border-[4px]  border-sky-500 rounded-full"></div>
                 ) : null}
               </div>
