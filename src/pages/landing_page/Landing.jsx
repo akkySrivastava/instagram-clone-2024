@@ -37,7 +37,7 @@ function Landing() {
             {/* Stories Section */}
             <div className="w-full overflow-y-auto no-scroll-thumb">
               <div className="flex w-full border-b-2 border-neutral-200">
-                <div className="flex w-full py-2">
+                <div className="flex w-full py-2 overflow-x-auto">
                   <div className="flex items-center px-4 gap-6">
                     {profile_data.map(({ name, profile_img }, index) => (
                       <UserStories key={index} data={{ name, profile_img }} />

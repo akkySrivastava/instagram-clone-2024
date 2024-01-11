@@ -2,6 +2,7 @@ import { GoSearch } from "react-icons/go";
 import { useDrawerHooks } from "../../hooks/useDrawerHooks";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { TbArrowsSort } from "react-icons/tb";
 
 function FollowingList() {
   const { following_arr } = useDrawerHooks();
@@ -34,6 +35,12 @@ function FollowingList() {
           className="w-full bg-transparent p-0 border-none outline-none text-gray-800"
         />
       </div>
+      <div className="flex w-full items-center justify-between">
+        <span className="font-medium text-md">Sort by</span>
+        <span>
+          <TbArrowsSort size={20} />
+        </span>
+      </div>
       <div className="flex flex-col gap-3.5 w-full">
         {!following_state.length ? (
           <span>No users found.</span>
@@ -45,19 +52,19 @@ function FollowingList() {
                 <div className="flex">
                   <span>
                     <img
-                      className="w-16 h-16 object-cover rounded-full"
+                      className="max-w-16 min-h-16 object-cover rounded-full"
                       src={tiny}
                       alt=""
                     />
                   </span>
                 </div>
-                <div className="flex flex-col flex-1">
+                <div className="flex flex-col flex-1 min-w-[31%]">
                   <div className="flex items-center gap-1">
-                    <span className="truncate max-w-[150px] lowercase font-semibold">
+                    <span className="truncate lowercase font-semibold">
                       {String(photographer).split(" ").join("_")}
                     </span>
                   </div>
-                  <span className="text-gray-500">{photographer}</span>
+                  <span className="text-gray-500 truncate">{photographer}</span>
                 </div>
                 <div className="flex gap-2.5 items-center">
                   <button className="px-3 py-1.5 rounded-lg font-semibold text-sm bg-neutral-200">

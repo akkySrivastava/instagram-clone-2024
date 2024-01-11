@@ -5,13 +5,13 @@ function UserStories({ data }) {
   const { name, profile_img } = data;
   const navigate = useNavigate();
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center ">
       <div
         onClick={() => navigate("/insta/stories")}
         className="flex p-[3px] max-w-fit rounded-full bg-gradient-to-r from-[#ffc600] via-[#ff0040] to-[#e600cc] cursor-pointer"
       >
         <img
-          className="w-16 h-16 rounded-full items-center justify-center"
+          className="max-w-16 max-h-16 rounded-full items-center justify-center"
           src={profile_img}
           alt="profile1"
         />

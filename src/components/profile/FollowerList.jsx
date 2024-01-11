@@ -43,17 +43,15 @@ function FollowerList() {
             return (
               <div key={id} className="flex w-full items-center gap-3.5">
                 <div className="flex">
-                  <span>
-                    <img
-                      className="w-16 h-16 object-cover rounded-full"
-                      src={tiny}
-                      alt=""
-                    />
-                  </span>
+                  <img
+                    className="max-w-16 min-h-16 object-cover rounded-full"
+                    src={tiny}
+                    alt=""
+                  />
                 </div>
-                <div className="flex flex-col flex-1">
+                <div className="flex flex-col flex-1 min-w-[35%]">
                   <div className="flex items-center gap-1">
-                    <span className="truncate max-w-[100px] lowercase font-semibold">
+                    <span className="truncate lowercase font-semibold">
                       {String(photographer).split(" ").join("_")}
                     </span>
                     <span className="font-extrabold">·</span>
@@ -61,7 +59,7 @@ function FollowerList() {
                       Follow
                     </span>
                   </div>
-                  <span className="text-gray-500">{photographer}</span>
+                  <span className="text-gray-500 truncate">{photographer}</span>
                 </div>
                 <div className="flex gap-2.5 items-center">
                   <button className="px-3 py-1.5 rounded-lg font-semibold text-sm bg-neutral-200">

@@ -14,21 +14,19 @@ function SubscriptionsList() {
               <div className="flex">
                 <span>
                   <img
-                    className="w-16 h-16 object-cover rounded-full"
+                    className="max-w-16 min-h-16 object-cover rounded-full"
                     src={src?.tiny ?? ""}
                     alt=""
                   />
                 </span>
               </div>
-              <div className="flex flex-col flex-1">
+              <div className="flex flex-col flex-1 min-w-[40%]">
                 <div className="flex items-center gap-1">
-                  <span className="truncate max-w-[150px] lowercase font-semibold">
+                  <span className="truncate lowercase font-semibold">
                     {String(photographer).split(" ").join("_")}
                   </span>
                 </div>
-                <span className="text-gray-500 max-w-[150px] truncate">
-                  {photographer}
-                </span>
+                <span className="text-gray-500 truncate">{photographer}</span>
               </div>
               <div className="flex gap-2.5 items-center">
                 <button className="px-3 py-1.5 rounded-lg font-semibold text-sm text-white bg-blue-600">
