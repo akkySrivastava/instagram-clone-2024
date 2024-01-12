@@ -34,7 +34,7 @@ function FollowerList() {
           className="w-full bg-transparent p-0 border-none outline-none text-gray-800"
         />
       </div>
-      <div className="flex flex-col gap-3.5 w-full">
+      <div className="flex flex-col gap-3.5 w-full mb-3">
         {!follower_state.length ? (
           <span>No users found.</span>
         ) : (

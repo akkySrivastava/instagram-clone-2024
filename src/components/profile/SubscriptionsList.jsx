@@ -7,7 +7,7 @@ function SubscriptionsList() {
       <div className="flex w-full py-3 font-medium rounded-lg items-center px-3">
         <span className="">Suggested subscriptions</span>
       </div>
-      <div className="flex flex-col gap-3.5 w-full">
+      <div className="flex flex-col gap-3.5 w-full mb-3">
         {subscriptions_arr.map(({ id, src, photographer }) => {
           return (
             <div key={id} className="flex w-full items-center gap-3.5">

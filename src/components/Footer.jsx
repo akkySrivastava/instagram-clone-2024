@@ -4,10 +4,10 @@ import { GoHome, GoSearch } from "react-icons/go";
 import { Link, useLocation } from "react-router-dom";
 import ReelsIcon from "./icons/ReelsIcon";
 import { BsPlusSquare } from "react-icons/bs";
-import SwitchAccountMenu from "./Drawer/SwitchAccountMenu";
+import SwitchAccountMenu from "./drawer/SwitchAccountMenu";
 import { useDrawerHooks } from "../hooks/useDrawerHooks";
 import { useAccount } from "../hooks/useAccount";
-import DashboardMenu from "./Drawer/DashboardMenu";
+import DashboardMenu from "./drawer/DashboardMenu";
 
 const Footer = () => {
   const {
@@ -28,9 +28,9 @@ const Footer = () => {
       <Link to={"/"} className="cursor-pointer">
         <GoHome fill={pathname === "/" ? "#000" : ""} size={28} />
       </Link>
-      <span className="cursor-pointer">
+      <Link to={"/insta/explore"} className="cursor-pointer">
         <GoSearch size={28} />
-      </span>
+      </Link>
       <span onClick={openDashboard} className="cursor-pointer">
         <BsPlusSquare size={24} />
       </span>

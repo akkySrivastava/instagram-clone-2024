@@ -4,8 +4,23 @@ import Post from "../../components/Post";
 import Footer from "../../components/Footer";
 import UserStories from "../../components/UserStories";
 import { BsHeart } from "react-icons/bs";
+import { useAccount } from "../../hooks/useAccount";
+import { useMemo } from "react";
 
 function Landing() {
+  const { defaultAccount } = useAccount();
+  const { name } = defaultAccount;
+  const all_stories = useMemo(() => {
+    const stories = [...profile_data];
+    stories.forEach((e, index) => {
+      if (e.name === name) {
+        stories.splice(index, 1);
+        stories.unshift(e);
+      }
+    });
+    return stories;
+  }, [name]);
+
   return (
     <>
       <div className="flex w-screen h-svh bg-black">
@@ -38,8 +53,8 @@ function Landing() {
             <div className="w-full overflow-y-auto no-scroll-thumb">
               <div className="flex w-full border-b-2 border-neutral-200">
                 <div className="flex w-full py-2 overflow-x-auto">
-                  <div className="flex items-center px-4 gap-6">
-                    {profile_data.map(({ name, profile_img }, index) => (
+                  <div className="flex items-center px-4 gap-3">
+                    {all_stories?.map(({ name, profile_img }, index) => (
                       <UserStories key={index} data={{ name, profile_img }} />
                     ))}
                   </div>

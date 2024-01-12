@@ -16,14 +16,30 @@ import "swiper/css/pagination";
 import "swiper/css/scrollbar";
 import "swiper/css/effect-cube";
 import { profile_data } from "../data/raw_data";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { MdClose, MdMoreHoriz, MdVerified } from "react-icons/md";
 import { BsHeart, BsSend } from "react-icons/bs";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useAccount } from "../hooks/useAccount";
 
 function StoriesModal() {
   const [controlledSwiper, setControlledSwiper] = useState();
   const [mainSwiper, setMainSwiper] = useState();
+  const { username } = useParams();
+  const { defaultAccount } = useAccount();
+  const all_stories = useMemo(() => {
+    const stories = [...profile_data];
+    stories.forEach((e, index) => {
+      if (e.name === username) {
+        stories.splice(index, 1);
+        stories.unshift(e);
+      } else if (e.name === defaultAccount?.name) {
+        stories.splice(index, 1);
+      }
+    });
+    return stories;
+  }, [username, defaultAccount?.name]);
+
   return (
     <div className="bg-black w-full h-full">
       <>
@@ -38,7 +54,7 @@ function StoriesModal() {
             control: controlledSwiper,
           }}
         >
-          {profile_data.map((data, index) => (
+          {all_stories.map((data, index) => (
             <SwiperSlide key={index} className="h-full">
               <ChildrenSlider
                 mainSwiper={mainSwiper}

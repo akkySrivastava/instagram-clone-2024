@@ -8,8 +8,8 @@ import ProfileDataGrid from "./ProfileDataGrid";
 import { BsPlusSquare } from "react-icons/bs";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useDrawerHooks } from "../hooks/useDrawerHooks";
-import DashboardMenu from "./Drawer/DashboardMenu";
-import SwitchAccountMenu from "./Drawer/SwitchAccountMenu";
+import DashboardMenu from "./drawer/DashboardMenu";
+import SwitchAccountMenu from "./drawer/SwitchAccountMenu";
 import { useAccount } from "../hooks/useAccount";
 import AllLists from "./profile/AllLists";
 function UserProfile() {
@@ -135,24 +135,26 @@ function UserProfile() {
         </div>
 
         {/* User Highlights */}
-        <div className="flex w-full justify-between my-3 px-2">
-          {[...Array(5)].map((_, index) => {
-            return (
-              <div
-                key={index}
-                className="flex flex-col items-center min-w-16 cursor-pointer"
-              >
-                <img
-                  className="h-16 w-16 object-cover rounded-full border-2 p-0.5 border-gray-400"
-                  src={faker.image.urlLoremFlickr()}
-                  alt=""
-                />
-                <span className="truncate text-sm max-w-16">
-                  {faker.location.country()}
-                </span>
-              </div>
-            );
-          })}
+        <div className="flex w-full gap-2 my-3 px-2">
+          <div className="flex gap-2 overflow-x-auto no-scroll-thumb">
+            {[...Array(5)].map((_, index) => {
+              return (
+                <div
+                  key={index}
+                  className="flex flex-col items-center min-w-16 cursor-pointer"
+                >
+                  <img
+                    className="h-16 w-16 object-cover rounded-full border-2 p-0.5 border-gray-400"
+                    src={faker.image.urlLoremFlickr()}
+                    alt=""
+                  />
+                  <span className="truncate text-sm max-w-16">
+                    {faker.location.country()}
+                  </span>
+                </div>
+              );
+            })}
+          </div>
         </div>
 
         {/* User Posts/Reels/Tags */}
