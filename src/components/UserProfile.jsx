@@ -8,8 +8,8 @@ import ProfileDataGrid from "./ProfileDataGrid";
 import { BsPlusSquare } from "react-icons/bs";
 import { AiOutlineMenu } from "react-icons/ai";
 import { useDrawerHooks } from "../hooks/useDrawerHooks";
-import DashboardMenu from "./drawer/DashboardMenu";
-import SwitchAccountMenu from "./drawer/SwitchAccountMenu";
+import DashboardMenu from "./drawers/DashboardMenu";
+import SwitchAccountMenu from "./drawers/SwitchAccountMenu";
 import { useAccount } from "../hooks/useAccount";
 import AllLists from "./profile/AllLists";
 function UserProfile() {

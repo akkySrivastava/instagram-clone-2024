@@ -4,10 +4,10 @@ import { GoHome, GoSearch } from "react-icons/go";
 import { Link, useLocation } from "react-router-dom";
 import ReelsIcon from "./icons/ReelsIcon";
 import { BsPlusSquare } from "react-icons/bs";
-import SwitchAccountMenu from "./drawer/SwitchAccountMenu";
+import SwitchAccountMenu from "./drawers/SwitchAccountMenu";
 import { useDrawerHooks } from "../hooks/useDrawerHooks";
 import { useAccount } from "../hooks/useAccount";
-import DashboardMenu from "./drawer/DashboardMenu";
+import DashboardMenu from "./drawers/DashboardMenu";
 
 const Footer = () => {
   const {
