@@ -1,5 +1,11 @@
 import PropTypes from "prop-types";
+import { useLocation } from "react-router-dom";
+import Reels from "../../assets/instagram.png";
 function ReelsIcon({ overlay }) {
+  const { pathname } = useLocation();
+  if (pathname === "/insta/reels") {
+    return <img width={24} height={24} src={Reels} alt="" />;
+  }
   if (overlay) {
     return (
       <svg

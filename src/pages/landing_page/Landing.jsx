@@ -1,6 +1,6 @@
 import { BrandLogo } from "../../components/Logo";
 import { dummy_post, profile_data } from "../../data/raw_data";
-import Post from "../../components/Post";
+import Post from "../../components/post/Post";
 import Footer from "../../components/Footer";
 import UserStories from "../../components/UserStories";
 import { BsHeart } from "react-icons/bs";

@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import instagram from "../../assets/instagram.png";
 import { HiSquare2Stack } from "react-icons/hi2";
+import { Link } from "react-router-dom";
 
 const AllData = ({ feed }) => {
   if (feed?.video_files?.length) {
     const track = feed.video_files.find((data) => data.quality === "sd")?.link;
     return (
       <div key={feed?.id} className="flex">
-        <div
+        <Link
+          to={`/insta/reels/r/${feed?.id}`}
           className={`h-[225px] relative w-full bg-slate-400 flex items-center justify-center cursor-pointer mb-0.5 `}
         >
           <video
@@ -22,7 +24,7 @@ const AllData = ({ feed }) => {
           <span className="top-2 right-2 absolute">
             <img className="w-5 h-5 invert" src={instagram} alt="" />
           </span>
-        </div>
+        </Link>
       </div>
     );
   }

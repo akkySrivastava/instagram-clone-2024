@@ -22,7 +22,7 @@ function UserStories({ data }) {
         }  cursor-pointer`}
       >
         <img
-          className="max-w-16 max-h-16 rounded-full items-center justify-center"
+          className="max-w-16 max-h-16 w-16 h-16 rounded-full items-center justify-center"
           src={profile_img}
           alt="profile1"
         />

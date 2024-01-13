@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import { profile_data } from "../data/raw_data";
-import { GoHome, GoSearch } from "react-icons/go";
+import { GoHome, GoHomeFill, GoSearch } from "react-icons/go";
+import { ImSearch } from "react-icons/im";
 import { Link, useLocation } from "react-router-dom";
 import ReelsIcon from "./icons/ReelsIcon";
-import { BsPlusSquare } from "react-icons/bs";
+import { BsPlusSquare, BsPlusSquareFill } from "react-icons/bs";
 import SwitchAccountMenu from "./drawers/SwitchAccountMenu";
 import { useDrawerHooks } from "../hooks/useDrawerHooks";
 import { useAccount } from "../hooks/useAccount";
@@ -26,13 +27,21 @@ const Footer = () => {
   return (
     <div className="w-full bottom-0 py-3 flex items-center justify-around">
       <Link to={"/"} className="cursor-pointer">
-        <GoHome fill={pathname === "/" ? "#000" : ""} size={28} />
+        {pathname === "/" ? <GoHomeFill size={28} /> : <GoHome size={28} />}
       </Link>
       <Link to={"/insta/explore"} className="cursor-pointer">
-        <GoSearch size={28} />
+        {pathname === "/insta/explore" ? (
+          <ImSearch size={24} />
+        ) : (
+          <GoSearch size={28} />
+        )}
       </Link>
       <span onClick={openDashboard} className="cursor-pointer">
-        <BsPlusSquare size={24} />
+        {openDashboardMenu ? (
+          <BsPlusSquareFill size={24} />
+        ) : (
+          <BsPlusSquare size={24} />
+        )}
       </span>
       <Link to={"/insta/reels"} className="cursor-pointer">
         <ReelsIcon />

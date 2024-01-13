@@ -2,25 +2,48 @@ import { Avatar, Tooltip } from "antd";
 import PropTypes from "prop-types";
 import { BsBookmark, BsChat, BsHeart, BsSend } from "react-icons/bs";
 import { MdMoreHoriz } from "react-icons/md";
-import { generateRandomImage, generateRandomPostImage } from "../data/raw_data";
+import {
+  generateRandomImage,
+  generateRandomPostImage,
+} from "../../data/raw_data";
 import moment from "moment";
+import { useAccount } from "../../hooks/useAccount";
+import { useParams } from "react-router-dom";
+import { useEffect } from "react";
+import { numberFormatter } from "../../utils/utils";
 
-function Post({ post_data }) {
+function Post({ post_data, img, id, isSinglePost = false }) {
   const { user, likes, comments, caption, created_time } = post_data;
   const { username } = user;
+  const { defaultAccount } = useAccount();
+  const { name, profile_img } = defaultAccount;
+  const { post_id } = useParams();
+
+  useEffect(() => {
+    if (post_id) {
+      document
+        .getElementById(String(post_id))
+        .scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  }, [post_id]);
   return (
-    <div className="flex w-full flex-col border-b-2 border-neutral-200">
+    <div
+      id={id}
+      className="flex w-full flex-col border-b-2 border-neutral-200 overflow-y-auto"
+    >
       <div className="flex w-full items-center justify-between my-2 px-4">
         <div className="flex items-center gap-1.5">
           <div className="flex p-[2px] max-w-fit rounded-full bg-gradient-to-r from-[#ffc600] via-[#ff0040] to-[#e600cc] cursor-pointer">
             <img
               className="w-8 h-8 rounded-full items-center justify-center"
-              src={generateRandomImage()}
+              src={isSinglePost ? profile_img : generateRandomImage()}
               alt="profile1"
             />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-semibold">{username ?? ""}</span>
+            <span className="text-sm font-semibold">
+              {isSinglePost ? name : username ?? ""}
+            </span>
             <span className="text-[10px] text-neutral-400">
               {moment(new Date(created_time * 1000)).fromNow()}
             </span>
@@ -30,10 +53,12 @@ function Post({ post_data }) {
           <MdMoreHoriz size={24} />
         </span>
       </div>
-      <div className="flex w-full">
+      <div className="flex flex-1 w-full">
         <img
-          className="max-h-72 w-full object-cover object-center"
-          src={generateRandomPostImage()}
+          className={`${
+            isSinglePost ? "h-full w-full" : "max-h-72 h-72"
+          }  w-full object-cover object-center`}
+          src={img ?? generateRandomPostImage()}
           alt=""
         />
       </div>
@@ -80,7 +105,7 @@ function Post({ post_data }) {
           </span>{" "}
           and
           <span className="font-semibold">
-            {new Intl.NumberFormat("en-US").format(likes?.count)} others
+            {numberFormatter(likes?.count)} others
           </span>
         </div>
       </div>
@@ -114,6 +139,9 @@ function Post({ post_data }) {
 
 Post.propTypes = {
   post_data: PropTypes.object.isRequired,
+  img: PropTypes.string,
+  id: PropTypes.number,
+  isSinglePost: PropTypes.bool,
 };
 
 export default Post;
